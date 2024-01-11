@@ -114,8 +114,18 @@ console.log(arrayMultiplos(17, 6));
 // Example:
 // - `positiveDom([-1, -3, -5, 4, 6767])` should return `false`.
 
-const positiveDom = (param) => {};
+const positiveDom = (arrayNumber) => {
+    let totalPositive = 0;
+    arrayNumber.map((value) => {
+        if (Math.sign(value) === 1) {
+            totalPositive++;
+        }
+    });
+    return totalPositive > arrayNumber.length / 2 ? true : false;
+};
 
+console.log(positiveDom([-1, -3, -5, 4, 6767])); //negativamente dominante false
+console.log(positiveDom([1, 3, 5, -4, -6767])); //Positivamente dominante true
 //*********  Antipodal Average ***********
 
 // Given an array, return a shorter array following these steps:
@@ -124,4 +134,19 @@ const positiveDom = (param) => {};
 // - Divide each number of the resulting array by 2.
 
 // Example:
-// - For the array `[1,2,3,5,22,6]`, the result should be `[3.5, 12, 4]`.
+// - For the array `[1,2,3,5,22,6,8]`, the result should be `[3.5, 12, 4]`.
+
+const antipodalAverage = (arrayNumbers) => {
+    let totalLenght = arrayNumbers.length;
+    let arrayEnd = [];
+    let mid = Math.trunc(totalLenght / 2);
+    let array1 = arrayNumbers.slice(0, mid);
+    let array2 = arrayNumbers.slice(totalLenght % 2 === 0 ? mid : mid + 1, totalLenght).reverse();
+    for (let index = 0; index < mid; index++) {
+        arrayEnd.push((array1[index] + array2[index]) / 2);
+    }
+    return arrayEnd;
+};
+
+console.log(antipodalAverage([1, 2, 3, 5, 22, 6]));
+console.log(antipodalAverage([1, 2, 3, 5, 22, 6, 8]));
